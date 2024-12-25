@@ -20,7 +20,7 @@ def measure_performance(method):
         start_time = time.time()
         result = method(*args, **kwargs)
         end_time = time.time()
-        print method.__name__+' has taken: '+str(end_time-start_time)+' sec'
+        print(f"{method.__name__} has taken: {end_time - start_time} sec")
         return result
     return timed
 
@@ -57,14 +57,14 @@ def read_video(cap):
     HORIZONTAL_BORDER = 30
 
     global VERTICAL_BORDER
-    VERTICAL_BORDER = (HORIZONTAL_BORDER*old_gray.shape[1])/old_gray.shape[0]
+    VERTICAL_BORDER = int((HORIZONTAL_BORDER*old_gray.shape[1])/old_gray.shape[0])
 
     # motion meshes in x-direction and y-direction
     x_motion_meshes = []; y_motion_meshes = []
 
     # path parameters
-    x_paths = np.zeros((old_frame.shape[0]/PIXELS, old_frame.shape[1]/PIXELS, 1))
-    y_paths = np.zeros((old_frame.shape[0]/PIXELS, old_frame.shape[1]/PIXELS, 1))
+    x_paths = np.zeros((int(old_frame.shape[0]/PIXELS), int(old_frame.shape[1]/PIXELS), 1))
+    y_paths = np.zeros((int(old_frame.shape[0]/PIXELS), int(old_frame.shape[1]/PIXELS), 1))
 
     frame_num = 1
     bar = tqdm(total=frame_count)
@@ -262,4 +262,4 @@ if __name__ == '__main__':
 
     # apply updated mesh warps & save the result
     generate_stabilized_video(cap, x_motion_meshes, y_motion_meshes, new_x_motion_meshes, new_y_motion_meshes)
-    print 'Time elapsed: ', str(time.time()-start_time)
+    print(f"Time elapsed: {time.time() - start_time}")
